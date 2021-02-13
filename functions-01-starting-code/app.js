@@ -20,7 +20,7 @@ const getPlayerChoice = function (){
         selection !== SCISSORS){
 
             alert(`Invalid choice! We chose ${ROCK} for you!`);
-            return DEFAULT_USER_CHOICE;
+            return;
         }
     return selection;
 };
@@ -42,14 +42,14 @@ const getComputerChoice = function (){
     }
 };
 
-
-const getWinner = function(cChoice, pChoice){
+/**Using function expression to get winner */
+/* const getWinner = function(cChoice, pChoice){
 
     if (cChoice === pChoice){
 
         return RESULT_DRAW;
     }
-    else if (cChoice===ROCK     && pChoice===PAPER ||           //Cleaner notation
+    else if (cChoice===ROCK     && pChoice===PAPER ||
              cChoice===PAPER    && pChoice===SCISSORS ||
              cChoice===SCISSORS && pChoice===ROCK){
 
@@ -59,7 +59,18 @@ const getWinner = function(cChoice, pChoice){
 
         return RESULT_COMPUTER_WINS;
     }
-};
+}; */
+
+/** Using arrow functions to get winner.  */
+const getWinner = (cChoice, pChoice=DEFAULT_USER_CHOICE) =>
+
+    cChoice === pChoice
+    ? RESULT_DRAW 
+    : (cChoice===ROCK && pChoice===PAPER) ||
+      (cChoice===PAPER && pChoice===SCISSORS) || 
+      (cChoice===SCISSORS && pChoice===ROCK) 
+    ? RESULT_PLAYER_WINS
+    : RESULT_COMPUTER_WINS;
 
 startGameBtn.addEventListener("click", function (){
 
@@ -68,8 +79,84 @@ startGameBtn.addEventListener("click", function (){
 
     gameIsRunning = true;
     console.log("Game is starting. . . ");
-    const playerChoice   = getPlayerChoice();
+    const playerChoice   = getPlayerChoice();           //might be undefined without default arguments
     const computerChoice = getComputerChoice();
-    const winner = getWinner(computerChoice, playerChoice);
-    console.log(winner);
+    let winner;
+
+    if (playerChoice){
+
+        winner = getWinner(computerChoice, playerChoice);
+    }
+    else {
+
+        winner = getWinner(computerChoice);
+    }
+
+    let message = `You picked ${playerChoice||DEFAULT_USER_CHOICE}, computer picked ${computerChoice}, therefore you `;
+    if (winner === RESULT_DRAW){
+
+        message += `had a draw.`;
+    }
+    else if (winner === RESULT_PLAYER_WINS){
+
+        message += `won.`;
+    }
+    else {
+        message += `lost.`;
+    }
+    alert(message);
+    gameIsRunning = false;
 });
+
+// not related to the game 
+// rest operator has to be the last argument in function declaration
+// you can only use rest once
+const sumUp = (resultHandler, ...args) => {
+
+    // this is the equivalent of a private function
+    const validateNumber = number => isNaN(number) ? 0 : number;
+    let sum = 0;
+
+    for (const num of args){
+        
+        sum += validateNumber(num);
+    }
+    resultHandler(sum);
+};
+
+
+/* const subtractUp = function(resultHandler){
+
+    let sum = 0;
+
+    for (const num of arguments){
+
+        sum -= num;
+    }
+
+    resultHandler(sum);
+}; */
+
+
+// Removed the 'arguments' because result Handler was being seen as one of the arguments
+// We are now using the rest operator 
+const subtractUp = function(resultHandler, ...numbers){
+
+    let sum = 0;
+
+    for (const num of numbers){
+
+        sum -= num;
+    }
+
+    resultHandler(sum);
+};
+
+
+const showResult = (messageText, result) => {
+
+    alert(messageText +" "+ result);
+};
+
+sumUp(showResult.bind(this, "The result after adding all numbers is:"), 4, 5, 5, 6);          //Just testing the call back function
+subtractUp(showResult.bind(this, "The result after subtracting all numbers is:"), 1, 10, 15, 20);

@@ -9,3 +9,12 @@
 
 - function declaration allows Javascript to hoist function. Whereas function expression is hoisted but will be given a null 
 value
+
+- if arrow function has one expression/statement, we can omit curly braces and it will
+  return by default.
+- Can you set default choices on normal functions or is it only done on arrow functions?
+- rest operator has to be the last argument in function declaration
+- you can only use rest once
+- arguments is only used for functions using function operator
+- introducing functions within a function is like introducing a private function in Java
+- learn bind(), apply() and call()
