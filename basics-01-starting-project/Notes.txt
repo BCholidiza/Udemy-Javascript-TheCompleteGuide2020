@@ -1,0 +1,4 @@
+** means power of 
++ + as in num1 + + num2 results in num2 being a number
+defer in script - loads js but waits for html to load before execution. Scripts run sequentially
+async - loads script ASAP and executes ASAP. Order of script execution is not guaranteed

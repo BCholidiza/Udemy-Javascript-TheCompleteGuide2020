@@ -1,0 +1,6 @@
+!! => double bang => !!1 results in true
+check || const name = someInput || 'Max', returns 'Max' if someInput is empty
+check && const name = someInput&&['Books'] returns Books if someInput is true
+for of works for arrays
+for in works for objects
+checked labelled statements
