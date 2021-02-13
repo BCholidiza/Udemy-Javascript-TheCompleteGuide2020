@@ -49,7 +49,7 @@ const getWinner = function(cChoice, pChoice){
 
         return RESULT_DRAW;
     }
-    else if (cChoice===ROCK     && pChoice===PAPER ||
+    else if (cChoice===ROCK     && pChoice===PAPER ||           //Cleaner notation
              cChoice===PAPER    && pChoice===SCISSORS ||
              cChoice===SCISSORS && pChoice===ROCK){
 
