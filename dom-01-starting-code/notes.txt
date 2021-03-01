@@ -1,0 +1,8 @@
+- Defer ensures javascript runs after html loads
+- research properties vs attribute
+    - attribute class has property className (lecture 153)
+    - attribute is what you write in your html - property is what is saved in that DOM node
+    - e.g. if we have <input class="test">, attribute=class, property=className
+- learn about node functions vs element functions
+- it may be a good idea to use classList as opposed to className. Read more.
+- check insertAdjacentHTML method
